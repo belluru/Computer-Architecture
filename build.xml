@@ -1,0 +1,43 @@
+<project name="EECS645Project" default="dist" basedir=".">
+    <description>
+       EECS 645 Build File
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build/classes"/>
+  <property name="dist"  location="dist"/>
+  <property name="exec"  location="EECS645-2789552.jar"/>
+
+  <target name="init">
+    
+    <tstamp/>
+    
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compiling the source files" >
+    
+    <javac srcdir="${src}" destdir="${build}"/>
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+    
+    <manifest file="MANIFEST.MF" mode="replace">
+      <attribute name="Main-Class" value="MainClass" />
+    </manifest>
+    <jar jarfile="${exec}" basedir="${build}" manifest="MANIFEST.MF" />
+  </target>
+  
+  
+
+  <target name="clean"
+        description="cleaning up" >
+  
+    <delete dir="${build}"/>
+    <delete file="${exec}"/>
+    <delete file="MANIFEST.MF"/>
+    
+  </target>
+</project> 
